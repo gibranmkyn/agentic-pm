@@ -1,0 +1,18 @@
+{
+  "name": "agentic-pm",
+  "version": "0.1.0",
+  "description": "A Claude Code plugin for product managers who use agents. Describe a PM situation in plain English; agentic-pm autoselects the right framework spine, walks you through producing the artifact, and grounds every quality check in a wiki-attributed source. Portfolio project.",
+  "author": {
+    "name": "Gibran Makyanie"
+  },
+  "keywords": [
+    "product-management",
+    "pm",
+    "agentic",
+    "ai-pm",
+    "frameworks",
+    "discovery",
+    "prd",
+    "evals"
+  ]
+}

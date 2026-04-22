@@ -1,10 +1,102 @@
 # agentic-pm workflow specs
 
-Source of truth for the 10 agentic-pm workflows. Validated one at a time with the maintainer; each spec captures use case, artifact, spine, quality bar, and wiki grounding.
+> **v0.3 restructure (2026-04-22):** the skill set was refactored from 22 → 18 (+ 1 meta) using a layered model with compilation. **The current source of truth is each skill's `SKILL.md` file** (under `skills/<name>/SKILL.md`); the design narrative below this header is the v0.3 overview, and the legacy specs further down are kept for historical context.
 
-PLAN.md §3 summarizes these; this file holds the full spec.
+## v0.3 — 18 skills, layered, with compilation
 
-Status legend: `validated` = spine + artifact + quality bar confirmed. `draft` = proposed, not yet confirmed. `tbd` = not yet walked through.
+Skills group by *when* a PM invokes them and *what altitude* they work at.
+
+### Layer 1 — Product context (periodic; feeds many PRDs)
+
+| Skill | Use case | Spine |
+|---|---|---|
+| `write-strategy` | "I need a multi-quarter strategy I can defend" | Rumelt Kernel / Six Dimensions / Strategic Narrative |
+| `map-opportunities` | "I have an outcome — which customer problems to pursue?" | Opportunity Solution Tree (OST) |
+| `define-metrics` | "What's our NSM / metric tree / cycle goal?" | NSM + Hierarchy of Engagement / Metric Trees / NCT |
+| `setup-voc` | "Build a continuous voice-of-customer program" | VoC program design |
+| `plan-roadmap` | "What are we committing to this quarter, in what order?" | Roadmap Planning |
+
+### Layer 2 — PRD + its deep-framework sections (per feature)
+
+| Skill | Use case | Spine |
+|---|---|---|
+| `compile-prd` | "Compose a PRD or one-pager from the section artifacts" | Modern PRD Lifecycle (composer) |
+| `size-impact` | "Is this feature worth building?" | Impact Sizing 4-step cascade |
+| `map-risks` | "What could kill this and how do I cheaply test it?" | Four Product Risks + Riskiest Hypothesis Sequencing (absorbs prototype) |
+| `write-rubric` | "Pre-launch AI feature — define what 'good' looks like" | Evaluation Rubric (Shukla) |
+| `align-stakeholders` | "Who blocks this, what's their objection, how do I pre-align?" | Stakeholder Management |
+
+### Layer 3 — Research (ad-hoc)
+
+| Skill | Use case | Spine |
+|---|---|---|
+| `plan-research` | "I need research that changes a decision" | Decision-First Research |
+| `synthesize-research` | "I have transcripts — what did we learn?" | JTBD Moesta / Ulwick ODI |
+
+### Layer 4 — Post-launch
+
+| Skill | Use case | Spine |
+|---|---|---|
+| `diagnose-ai` | "AI feature is failing — what's broken, what to fix first?" | Error Analysis + Three Gulfs |
+| `diagnose-metric` | "Metric moved unexpectedly — why?" | Metric Trees decomposition |
+| `build-judge` | "Scale judgment into an LLM judge" | Critique Shadowing + LLM Judge |
+| `review-impact` | "We shipped X N weeks ago — did it work?" | Impact Sizing journal calibration |
+
+### Standalone
+
+| Skill | Use case | Spine |
+|---|---|---|
+| `document-decision` | "Document a decision so it doesn't get relitigated" | SPIDER + One/Two-Way Door + 5-Cause Diagnostic |
+| `prioritize-backlog` | "Rank N items defensibly" | DRICE / ICE / LNO |
+
+### Meta
+
+| Skill | Use case |
+|---|---|
+| `setup-context` | "First run — populate COMPANY/GOALS/TEAM/PRODUCTS/CONSTRAINTS" |
+
+## The compilation model
+
+`compile-prd` is a composer, not an author. It scans `Work/` for the latest section artifacts produced by Layer 1 + Layer 2 skills, reports which are sharp vs. thin, and assembles at the requested fidelity.
+
+The same content compiles at different depths:
+- **Stage 1 (one-pager):** problem + metrics + evidence + next steps — ≤1 page
+- **Stage 2 (kickoff):** + solution mock + impact sizing + guardrails
+- **Stage 3 (full spec):** + edge cases + rollout + tracking + GTM + risks
+- **Stage 4 (launch-ready):** verify all gates closed
+- **Stage 5 (impact review):** link `review-impact` artifact
+
+A pitch and a full PRD are the same artifact at different stages. Section skills are the source of truth; compile-prd just assembles. See [SKILL-PATTERN.md](SKILL-PATTERN.md) for the full Socratic + compilation pattern every skill follows.
+
+## Renames from v0.2
+
+| v0.2 | v0.3 |
+|---|---|
+| `product-strategy` | `write-strategy` |
+| `opportunity` | `map-opportunities` |
+| `assumptions` | `map-risks` (absorbs `prototype`) |
+| `prd` | `compile-prd` (absorbs `one-pager`, `pitch`, `design-agent-system`) |
+| `roadmap` | `plan-roadmap` |
+| `stakeholder` | `align-stakeholders` |
+| `decisions` | `document-decision` |
+| `eval-plan` | `write-rubric` (post-launch mode moved to `diagnose-ai`) |
+| `llm-judge` | `build-judge` |
+| `voc-setup` | `setup-voc` |
+| `start` | `setup-context` |
+| `prioritize` | `prioritize-backlog` |
+| `measure` | **split** → `define-metrics` (NSM + tree + goals) + `size-impact` (feature sizing) |
+| `research` | **split** → `plan-research` + `synthesize-research` |
+| `goals` | folded into `define-metrics` |
+| `prototype` | folded into `map-risks` |
+| `one-pager`, `pitch`, `design-agent-system` | folded into `compile-prd` |
+| `daily`, `brainstorm` | dropped (utility / routing handled by Claude Code autoselect) |
+| — (new) | `review-impact` (Stage 5 closure) |
+
+---
+
+## Legacy specs (v0.2 — historical)
+
+Kept below for design history. Each individual `skills/<name>/SKILL.md` is the current source of truth. Cross-references and skill names below are pre-rename.
 
 ---
 

@@ -1,15 +1,19 @@
 ---
 name: discover-ai-feature
-description: Use this playbook when the PM has an outcome (or a vague "we should add AI") and needs to discover whether AI fits, where it fits, and what specific feature to scope. Loaded by the coach skill, not invoked directly.
+description: Use this playbook when the PM has confirmed (via coach-problem-framing or equivalent diagnostic work) that the problem is a learning problem worth solving, and now needs to scope where AI fits in the specific workflow. Loaded by the coach skill, not invoked directly.
 ---
 
 # Discover-AI-Feature — From workflow to AI-feature problem statement
 
 ## Use case
 
-This playbook is for the PM who has an outcome to hit (or a manager-mandated "do AI") and doesn't yet know what specific feature to build. The job is to anchor on a real workflow, talk to expert users, decide whether AI is even the right tool, pick an integration pattern, and frame the problem in eval-shaped form before any prototype gets built.
+This playbook is for the PM who has a framed problem and a confirmed AI fit, and now needs to scope the specific feature. The job is to anchor on a real workflow, talk to expert users, classify the AI archetype, pick an integration pattern, and frame the problem in eval-shaped form before any prototype gets built.
 
-This is the entry point of the AI product arc. It pairs Justin Farris's workflow-first stance with Product Faculty's 4D Discovery, the AI Product Archetypes check, and the Discovery-to-Eval handoff.
+This is the entry point of the AI product arc. It pairs the workflow-first discovery stance with 4D Phase 1 (UX Mapping), the AI Product Archetypes classifier, and the Discovery-to-Eval handoff.
+
+### Precondition: AI fit established upstream
+
+This playbook **assumes the computational-vs-learning gate has already cleared** — i.e., `coach-problem-framing` (or equivalent diagnostic work) has confirmed that the problem cannot be expressed as deterministic logic and genuinely needs probabilistic approximation. If the PM lands here cold with "we should add AI" and no upstream framing, **stop and route them to `coach-problem-framing` first**. Discovery without an established AI fit produces feature scopes for problems that don't need AI — wasted weeks downstream.
 
 ---
 
@@ -17,17 +21,17 @@ This is the entry point of the AI product arc. It pairs Justin Farris's workflow
 
 Before walking the playbook, ask the PM:
 
-1. **"Where is this coming from? Is there a specific manual workflow that's painful, or is the brief 'add AI to our product'?"** — this distinguishes a real opportunity from a top-down AI mandate. Both are workable; the playbook treats the second more skeptically.
-2. **"Have you watched anyone do this work end-to-end recently? When?"** — if they haven't, observation is the unblock and the rest of the playbook is premature.
-3. **"Who is the expert user — the person who can tell whether an AI-generated answer is correct?"** — name them. If the PM can't, that's the next task: find them. (Per Farris, expert-user access is a precondition for AI discovery.)
+1. **"Has the computational-vs-learning gate been cleared upstream? Where is the framing artifact?"** — if there is no upstream framing (no `coach-problem-framing` artifact or equivalent), stop and route to `coach-problem-framing` before continuing. This playbook does not re-litigate whether AI is the right shape.
+2. **"Walk me to the specific manual workflow this AI feature touches. Have you watched anyone do it end-to-end recently?"** — if they haven't, observation is the unblock and the rest of the playbook is premature.
+3. **"Who is the expert user — the person who can tell whether an AI-generated answer is correct?"** — name them. If the PM can't, that's the next task: find them. Expert-user access is a precondition for AI discovery — they're the eventual labeling authority for evals.
 
-If the PM names a workflow, has watched someone do it recently, and has an expert user accessible — proceed. Otherwise the next concrete action is fieldwork, not framework-walking.
+If the PM has the upstream framing, names a workflow, has watched someone do it recently, and has an expert user accessible — proceed. Otherwise the next concrete action is fieldwork (or upstream framing), not framework-walking.
 
 ---
 
 ## Spine
 
-One spine, no autoselect: 4D Phase 1 (UX Mapping: Persona → Stages → Activities → Pain Points → Prioritize), threaded with Farris's three integration patterns (inline / sidecar / predictive) and the Archetype check. JTBD switch-stories appear inline when the PM has interview transcripts.
+One spine, no autoselect: 4D Phase 1 (UX Mapping: Persona → Stages → Activities → Pain Points → Prioritize), threaded with the three AI integration patterns (inline / sidecar / predictive) and the AI Archetype classifier. JTBD switch-stories appear inline when the PM has interview transcripts.
 
 ---
 
@@ -44,7 +48,7 @@ Flag if missing:
 - The workflow is hypothetical — no one has actually been observed doing it.
 - The pain is asserted but not named — "it's slow," "it's annoying," with no specific moment.
 
-If any of these surface, stop and name the gap. **The fix is observation, not more whiteboarding.** Per Farris: "Find the painful process, understand it deeply, then layer AI on top. Don't abstract it away."
+If any of these surface, stop and name the gap. **The fix is observation, not more whiteboarding.** The workflow-first principle: find the painful process, understand it deeply, then layer AI on top — don't abstract it away.
 
 ### 2. Identify the expert user
 
@@ -57,7 +61,7 @@ Flag if missing:
 - The PM is using their own intuition as the quality voice.
 - No expert user has been interviewed yet.
 
-The expert user is who will eventually serve as the benevolent dictator on quality (per Hamel). Discovery without one means the eval set will be junk later.
+The expert user is who will eventually serve as the benevolent dictator on quality (per the labeling-ownership principle). Discovery without one means the eval set will be junk later.
 
 ### 3. UX-map the workflow (4D Phase 1)
 
@@ -76,22 +80,28 @@ Flag if missing:
 - The stages are abstract ("planning, execution, review") instead of workflow-specific.
 - All pain points are claimed equally important. No prioritization = no signal.
 
-### 4. Archetype check — is this even an AI problem?
+### 4. Classify the AI archetype
 
-Ask: **"Why does this need AI? What capability is AI giving you that a deterministic system or a better UI couldn't?"**
+Upstream framing already established the problem is a learning problem. This step picks the *shape* of the AI system, not whether to use one.
 
-Push for an honest answer. Three failure modes to call out:
-- **Chatbot fatigue territory.** "Add a chat interface to our product" with no specific job. Push back: "Where does the chat actually outperform a search box or a form?"
-- **AI sprinkled on top.** A predictive feature where rules would be cheaper and more reliable. Ask: "What's the rule-based version, and why is it insufficient?"
-- **Capability ceiling not changed.** AI is being used to do something users could already do faster themselves. Ask: "What does AI enable that was previously impossible or impractically expensive?" (Per Farris.)
+Ask: **"Given the workflow and the prioritized pain point, what archetype does this look like?"** Walk the PM through the three options:
 
-If the answer holds, name the archetype: **Single-Layer** (instructions only — narrow tasks, prompt engineering dominates), **Multi-Layer** (instructions + knowledge + memory — RAG, domain-specific), or **Agentic** (all six levers — multi-step, tool use, autonomy concerns). The archetype determines downstream PM concerns, not just engineering choices.
+- **Single-Layer** — instructions only. Narrow tasks; prompt engineering dominates. Highest hallucination risk because there's no knowledge grounding. Best when the base model already knows enough and the task is well-defined.
+- **Multi-Layer** — instructions + knowledge + memory. RAG, domain-specific Q&A, enterprise copilots. Retrieval quality and context-window management become the critical engineering decisions. Best when the base model lacks the necessary knowledge.
+- **Agentic** — all six levers. Multi-step workflows, tool use, autonomy concerns. Errors compound across steps; human-in-the-loop design becomes critical. Best when the workflow requires consequential, multi-step actions.
 
-If the AI answer doesn't hold — say so. Recommend the PM scope a non-AI feature instead. This is a valid playbook outcome.
+Push for: a defensible choice grounded in the workflow map and the prioritized pain point. The archetype determines downstream PM concerns, not just engineering choices — Single-Layer focuses you on prompt engineering and output variance; Multi-Layer focuses you on retrieval and freshness; Agentic focuses you on autonomy levels and failure containment.
+
+Watch for these workflow-level mis-fits even though the upstream gate has cleared — they don't undo the gate, but they signal a misshapen archetype choice:
+- **Chatbot fatigue territory.** "Add a chat interface" with no specific job inside the workflow. Push: "Where does the chat actually outperform a search box, a form, or an inline suggestion?"
+- **AI sprinkled on top.** A predictive feature where rules would be cheaper and more reliable for *this specific step*. Ask: "What's the rule-based version of this step, and why is it insufficient *here*?"
+- **Capability ceiling not changed at the workflow level.** The broader problem is a learning problem, but this specific feature scope doesn't enable anything new for the user. Ask: "What does AI enable in this workflow that was previously impossible or impractically expensive?"
+
+If any of these surface, the fix is to re-scope the archetype or the integration pattern (step 5) — not to relitigate whether AI fits at all. If the workflow genuinely doesn't benefit from any AI archetype, route the PM back to `coach-problem-framing` to revisit the framing that landed them here.
 
 ### 5. Pick the integration pattern
 
-Three patterns from Farris. Ask the PM to choose one and defend the choice:
+Three AI integration patterns. Ask the PM to choose one and defend the choice:
 
 - **Inline** — AI assists *within* the existing workflow (autocomplete, in-form suggestions, summarization in place). User doesn't switch context. Best when the AI augments an active task.
 - **Sidecar** — AI runs alongside (chat panel, contextual assistant, sidebar). User can ignore it. Best when the AI is supplementary, not load-bearing.
@@ -145,8 +155,8 @@ If no transcripts exist — say so, and recommend interview work as the unblock.
 | Workflow has been observed in real use, not just described | AI Product Development Process: "Observe workflow before intervening. Find the painful process, understand it deeply, then layer AI on top. Don't abstract it away." |
 | Expert user is named and accessible (not a buyer, not a non-expert) | AI Product Development Process: "Talk to expert users who use the product daily. They can validate whether AI suggestions are actually good." |
 | UX map has all 5 steps populated with evidence (Persona, Stages, Activities, Pain Points, Prioritize) | 4D Method: "Map the User Experience — 5-step UX mapping: Persona, Stages, Activities, Pain Points, Prioritize" |
-| Archetype is named (Single-Layer / Multi-Layer / Agentic) and the AI vs. non-AI choice is defended | AI Product Archetypes: "The archetype determines which engineering challenges and PM concerns dominate." |
-| Capability ceiling claim holds — AI enables something a deterministic system cannot | AI Product Development Process: "Reserve AI for places where it genuinely changes the capability ceiling — where it enables something that was previously impossible or impractically expensive." |
+| Archetype is named (Single-Layer / Multi-Layer / Agentic) and defended against the workflow map | AI Product Archetypes: "The archetype determines which engineering challenges and PM concerns dominate." |
+| Workflow-level AI fit holds — within this specific feature scope, AI enables something a rule or UI couldn't | AI Product Development Process: "Reserve AI for places where it genuinely changes the capability ceiling — where it enables something that was previously impossible or impractically expensive." (The broader computational-vs-learning gate is upstream; this check is workflow-level only.) |
 | Integration pattern is picked (inline / sidecar / predictive) and tied to the prioritized pain point | AI Product Development Process: "Three AI integration patterns to discover: Inline, Sidecar, What-if / predictive." |
 | Primary Six Lever is named (Instructions / Knowledge / Memory / Tools / Reasoning / Post-Training) | Six Levers (AI PM): "The first five levers are where most AI PM work happens." |
 | Eval-shaped problem statement exists: dataset source + binary pass/fail criteria + named labeling authority | Discovery-to-Eval Handoff: "The handoff test: can an engineer build the first round of the eval dataset by reading only the PRD and the interview transcripts?" |
@@ -164,7 +174,7 @@ If any check is unmet, name the gap to the PM as the next concrete action — in
 1. **Workflow walkthrough** (step-by-step manual sequence the AI is meant to address)
 2. **Expert user** (named human + access status)
 3. **UX map** (5 layers with evidence tags)
-4. **Archetype + capability ceiling argument**
+4. **Archetype + workflow-level fit argument**
 5. **Integration pattern + rationale**
 6. **Primary + secondary Six Levers**
 7. **Eval-shaped problem statement** (dataset source, 3–10 binary pass/fail criteria, benevolent dictator)
@@ -176,7 +186,7 @@ If any check is unmet, name the gap to the PM as the next concrete action — in
 ## Handoffs
 
 - **Next:** `validate-feasibility.md` — Prompt-as-MVP on 20–50 real inputs to test whether the AI can actually do the task before any design or build work.
-- **If discovery surfaced that AI is the wrong tool:** stop here and recommend a non-AI scoping path. This is a valid outcome.
+- **If the workflow-level AI fit fails (no archetype works):** route the PM back to `coach-problem-framing` to revisit the framing — the upstream gate may have been clean at the problem level but the chosen feature scope doesn't benefit from any AI archetype.
 - **If interview transcripts are missing or stale:** recommend the PM run discovery interviews before continuing — feasibility validation built on imagined scenarios produces eval sets that test the team's assumptions, not user reality.
 
 End the session with the single riskiest assumption surfaced in the eval-shaped problem statement, and one concrete action in the next 48 hours — typically: talk to the expert user, or run an N-of-5 prompt sketch against real inputs to feel the capability before investing in a full Prompt-as-MVP.

@@ -26,7 +26,7 @@ These skills are forcing functions against those failures. Each one walks you th
 Install once as a plugin:
 
 ```bash
-git clone https://github.com/gibranmakyanie/agentic-pm.git ~/.claude/plugins/agentic-pm
+git clone https://github.com/gibranmkyn/agentic-pm.git ~/.claude/plugins/agentic-pm
 ```
 
 (Or clone elsewhere and symlink to `~/.claude/plugins/agentic-pm/`.)
@@ -172,7 +172,7 @@ agentic-pm/
 └── README.md
 ```
 
-For the v0.4 design narrative — niche, decisions, refactor — see [PLAN.md](PLAN.md) §0.v0.4.
+Design narrative, decisions, and refactor history are tracked in `PLAN.md` (local only).
 
 ---
 

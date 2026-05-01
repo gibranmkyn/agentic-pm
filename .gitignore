@@ -3,5 +3,7 @@ node_modules/
 *.log
 .env
 .env.local
+_archive/
+PLAN.md
 Work/*
 !Work/.gitkeep

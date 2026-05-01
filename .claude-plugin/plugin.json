@@ -1,7 +1,7 @@
 {
   "name": "agentic-pm",
-  "version": "0.1.0",
-  "description": "A Claude Code plugin for product managers who use agents. Describe a PM situation in plain English; agentic-pm autoselects the right framework spine, walks you through producing the artifact, and grounds every quality check in a wiki-attributed source. Portfolio project.",
+  "version": "0.4.0",
+  "description": "A senior AI PM coach for Claude Code. Walks PMs (or PM-hat-wearers — founders, eng leads) through building AI products: discovery, feasibility validation, AI UX design, AI PRDs, eval pipelines, error analysis, LLM judges, ongoing iteration, and impact review. Wiki-grounded portfolio project.",
   "author": {
     "name": "Gibran Makyanie"
   },

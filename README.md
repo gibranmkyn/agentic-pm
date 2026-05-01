@@ -164,15 +164,14 @@ agentic-pm/
 │   └── reference/            ← 10 playbooks + the spine reference
 │   (future: skills/coach-metrics/, skills/coach-decisions/, etc.)
 ├── frameworks/               ← distilled, attributed framework cards
-├── examples/                 ← worked demos for the playbooks
+│                                (scoped to the AI product arc; more land
+│                                 when the next coach ships)
 ├── docs/                     ← design corpus (optional reading)
-                              ← your project's ./.agentic-pm/ (in your CWD,
-                                not in the plugin) holds session artifacts
-├── PLAN.md                   ← v0.4 design narrative + refactor history
+├── PLAN.md                   ← v0.4 design narrative + refactor history (local)
 └── README.md
 ```
 
-Design narrative, decisions, and refactor history are tracked in `PLAN.md` (local only).
+Session artifacts live in `./.agentic-pm/` inside your project directory (your CWD), not in the plugin. Design narrative, decisions, and refactor history are tracked in `PLAN.md` (local only).
 
 ---
 
